@@ -77,7 +77,7 @@ export function WaitlistForm() {
     return (
       <div className="surface-card border-[#F5A623] p-6">
         <p className="headline-display text-4xl text-[#F0EDE8]">
-          YOU&apos;RE IN. WE&apos;LL HIT YOU WHEN YOUR CITY GOES LIVE.
+          YOU&apos;RE IN. WE&apos;LL HIT YOU UP WHEN YOUR CITY GOES LIVE.
         </p>
       </div>
     );
