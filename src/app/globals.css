@@ -1,26 +1,201 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --bg-primary: #0a0a0a;
+  --bg-surface: #111111;
+  --bg-elevated: #1a1a1a;
+  --border: #222222;
+  --border-active: #f5a623;
+  --text-primary: #f0ede8;
+  --text-secondary: #7a7a7a;
+  --text-tertiary: #444444;
+  --accent: #f5a623;
+  --accent-dim: rgb(245 166 35 / 12%);
+  --negative: #e05252;
+  --positive: #4caf7d;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --color-background: var(--bg-primary);
+  --color-foreground: var(--text-primary);
+  --font-sans: var(--font-dm-mono);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-dm-mono), monospace;
+  overflow-x: clip;
+}
+
+* {
+  border-color: var(--border);
+  border-radius: 0;
+}
+
+::selection {
+  background: var(--accent);
+  color: #000;
+}
+
+.container-page {
+  margin-inline: auto;
+  width: min(1240px, calc(100% - 2rem));
+}
+
+.section-label {
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.headline-display {
+  font-family: var(--font-bebas), sans-serif;
+  letter-spacing: 0.02em;
+  line-height: 0.95;
+  text-transform: uppercase;
+}
+
+.fade-up {
+  opacity: 0;
+  transform: translateY(14px);
+  animation: fadeUp 0.48s ease-out forwards;
+}
+
+.surface-card {
+  background: var(--bg-surface);
+  border: 1px solid var(--border);
+  transition: border-color 150ms ease-out;
+}
+
+.surface-card:hover {
+  border-color: var(--border-active);
+}
+
+.tight-input {
+  border: 1px solid var(--border);
+  background: #0d0d0d;
+  color: var(--text-primary);
+  height: 48px;
+  padding-inline: 12px;
+  outline: none;
+  transition: border-color 150ms ease-out;
+}
+
+.tight-input::placeholder {
+  color: var(--text-tertiary);
+}
+
+.tight-input:focus {
+  border-color: var(--border-active);
+}
+
+.terminal-scan {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgb(255 255 255 / 0%) 0,
+    rgb(255 255 255 / 0%) 6px,
+    rgb(245 166 35 / 4%) 7px
+  );
+  animation: terminalSweep 3.8s linear infinite;
+}
+
+.pulse-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--positive);
+  animation: pulse 1.2s linear infinite;
+}
+
+.path-draw {
+  stroke-dasharray: 420;
+  stroke-dashoffset: 420;
+  animation: drawPath 1.2s ease-out forwards;
+}
+
+.grid-bg {
+  background-image:
+    linear-gradient(to right, #1a1a1a 1px, transparent 1px),
+    linear-gradient(to bottom, #1a1a1a 1px, transparent 1px);
+  background-size: 32px 32px;
+}
+
+.grain-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.18;
+  background-image: repeating-radial-gradient(
+    circle at 0 0,
+    rgb(245 166 35 / 14%) 0,
+    rgb(245 166 35 / 14%) 1px,
+    transparent 1px,
+    transparent 5px
+  );
+}
+
+.faq-content {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 220ms ease-out;
+}
+
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.5;
+  }
+}
+
+@keyframes terminalSweep {
+  0% {
+    transform: translateY(-20%);
+  }
+  100% {
+    transform: translateY(20%);
+  }
+}
+
+@keyframes drawPath {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .container-page {
+    width: min(1240px, calc(100% - 1.25rem));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .fade-up {
+    opacity: 1;
+    transform: none;
+    animation: none;
+  }
+
+  .pulse-dot,
+  .terminal-scan,
+  .path-draw {
+    animation: none;
+  }
 }
