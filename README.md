@@ -16,7 +16,8 @@ Open `http://localhost:3000`.
 Create `.env.local`:
 
 ```bash
-NEXT_PUBLIC_SUPABASE_URL=your_supabase_project_url
+SUPABASE_URL=your_supabase_project_url
+# Optional fallback (legacy): NEXT_PUBLIC_SUPABASE_URL
 SUPABASE_SERVICE_ROLE_KEY=your_supabase_service_role_key
 ADMIN_USERNAME=your_admin_username
 ADMIN_PASSWORD=your_admin_password

@@ -16,6 +16,8 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
+export const dynamic = "force-dynamic";
+
 function formatDate(value: string) {
   return new Date(value).toLocaleString("en-IN", {
     dateStyle: "medium",

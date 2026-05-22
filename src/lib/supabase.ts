@@ -1,9 +1,14 @@
 import { createClient } from "@supabase/supabase-js";
 
-const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
-const supabaseServiceRoleKey = process.env.SUPABASE_SERVICE_ROLE_KEY;
+function readEnv(key: string) {
+  return process.env[key];
+}
 
 export function getSupabaseServerClient() {
+  const supabaseUrl =
+    readEnv("SUPABASE_URL") || readEnv("NEXT_PUBLIC_SUPABASE_URL");
+  const supabaseServiceRoleKey = readEnv("SUPABASE_SERVICE_ROLE_KEY");
+
   if (!supabaseUrl || !supabaseServiceRoleKey) {
     return null;
   }

@@ -1,6 +1,10 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
+function readEnv(key: string) {
+  return process.env[key];
+}
+
 function unauthorizedResponse() {
   return new NextResponse("Authentication required.", {
     status: 401,
@@ -9,8 +13,8 @@ function unauthorizedResponse() {
 }
 
 export function proxy(request: NextRequest) {
-  const username = process.env.ADMIN_USERNAME;
-  const password = process.env.ADMIN_PASSWORD;
+  const username = readEnv("ADMIN_USERNAME");
+  const password = readEnv("ADMIN_PASSWORD");
 
   if (!username || !password) {
     return new NextResponse(
