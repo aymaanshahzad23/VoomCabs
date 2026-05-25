@@ -151,7 +151,7 @@ export function WaitlistForm() {
         disabled={status === "loading"}
         className="mt-4 w-full rounded-[2px] bg-[#F5A623] px-4 py-3 text-2xl leading-none text-black headline-display transition duration-150 ease-out hover:brightness-110 hover:-translate-y-px disabled:cursor-not-allowed disabled:opacity-70"
       >
-        {status === "loading" ? "SYNCING..." : "JOIN THE WAITLIST"}
+        {status === "loading" ? "GETTING YOU IN..." : "JOIN THE WAITLIST"}
       </button>
 
       <p className="mt-3 text-[10px] uppercase tracking-[0.12em] text-[#7A7A7A]">
