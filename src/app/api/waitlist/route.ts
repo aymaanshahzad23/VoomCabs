@@ -12,17 +12,32 @@ export async function POST(request: Request) {
   }
 
   const body = await request.json().catch(() => null);
+  if (
+    body &&
+    typeof body === "object" &&
+    "website" in body &&
+    typeof body.website === "string" &&
+    body.website.trim() !== ""
+  ) {
+    // Honeypot: silently accept bot-like submits.
+    return NextResponse.json({ message: "Received." }, { status: 200 });
+  }
+
   const parsed = waitlistSchema.safeParse(body);
 
   if (!parsed.success) {
+    const firstIssue = parsed.error.issues[0];
+    const field = firstIssue?.path?.[0];
+    const messageByField: Record<string, string> = {
+      email: "Please enter a valid email and try again.",
+      name: "Name looks too long. Please shorten it.",
+      city: "City looks too long. Please shorten it.",
+    };
+
     return NextResponse.json(
-      { message: "Please enter a valid email and try again." },
+      { message: messageByField[String(field)] || "Please check your details and try again." },
       { status: 400 },
     );
-  }
-
-  if (parsed.data.website) {
-    return NextResponse.json({ message: "Received." }, { status: 200 });
   }
 
   const { error } = await supabase.from("waitlist").insert([

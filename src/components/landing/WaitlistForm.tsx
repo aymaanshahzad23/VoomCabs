@@ -135,14 +135,15 @@ export function WaitlistForm() {
       </div>
 
       <div className="hidden" aria-hidden="true">
-        <label htmlFor="website">Website</label>
+        <label htmlFor="company_website">Company website</label>
         <input
-          id="website"
+          id="company_website"
+          name="company_website"
           type="text"
           value={website}
           onChange={(event) => setWebsite(event.target.value)}
           tabIndex={-1}
-          autoComplete="off"
+          autoComplete="new-password"
         />
       </div>
 
